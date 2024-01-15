@@ -1,0 +1,17 @@
+name: Build and push to ghcr.io
+
+on:
+  push
+
+jobs:
+  build_and_push:
+    runs-on: ubuntu-latest
+    steps:
+        - uses: actions/checkout@v4
+        - name: Build and push
+          run: |
+            docker login ghcr.io -u ${{ github.actor }} --password-stdin
+            docker build -t ghcr.io/${{ github.repository }}:latest .
+            docker push ghcr.io/${{ github.repository }}:latest
+
+              
