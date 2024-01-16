@@ -6,6 +6,7 @@ on:
       - master
     paths:
       - .github/workflows/build_and_push_latest.yml
+      - Dockerfile
       
 jobs:
   build_and_push:
