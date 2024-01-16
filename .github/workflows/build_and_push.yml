@@ -1,7 +1,11 @@
 name: Build and push to ghcr.io
 
 on:
-  push
+  workflow_call:
+    inputs:
+      scrypto_version:
+        required: true
+        type: string
 
 jobs:
   build_and_push:
@@ -11,9 +15,7 @@ jobs:
         - name: Build and push
           run: |
             docker login ghcr.io -u ${{ github.actor }} --password ${{ secrets.PACKAGE_MANAGER_PW }}
-            docker build -t ghcr.io/${{ github.repository }}:1.0.1 .
-            docker build -t ghcr.io/${{ github.repository }}:latest .
-            docker push ghcr.io/${{ github.repository }}:1.0.1
-            docker push ghcr.io/${{ github.repository }}:latest
+            docker build -f Dockerfile.${{ inputs.package }}  -t ghcr.io/${{ github.repository }}:${{ inputs.package }} .
+            docker push ghcr.io/${{ github.repository }}:${{ inputs.package }}
 
               
