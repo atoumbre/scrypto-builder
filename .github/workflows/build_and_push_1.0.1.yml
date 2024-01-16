@@ -7,7 +7,6 @@ on:
     paths:
       - .github/workflows/build_and_push_1.0.1.yml
 
-
 jobs:
   check-and-build:
     permissions:
